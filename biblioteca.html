@@ -13,6 +13,7 @@
       <h1>Mini biblioteca</h1>
     </header>
     <main class="container">
+      <!-- primer ejercicio  -->
       <section>
         <h2>1. Libros disponibles</h2>
         <p>Obras de la colección en orden alfabético según el título</p>
@@ -23,7 +24,7 @@
         <details>
           <summary>2. Sugerencias de obras por tema e idioma</summary>
 
-          <form id="form-filtrado">
+          <form id="form-filtrado" name="formFiltrado">
             <fieldset>
               <div>
                 <h2>Categorías:</h2>
@@ -33,7 +34,7 @@
                     name="categoria"
                     value="todo"
                     checked
-                  />Sin especificar</label
+                  />Cualquiera</label
                 >
                 <label
                   ><input
@@ -74,8 +75,7 @@
               <div>
                 <h2>Idioma:</h2>
                 <label
-                  ><input type="radio" name="idioma" value="todo" checked />Sin
-                  especificar</label
+                  ><input type="radio" name="idioma" value="todo" checked />Cualquiera</label
                 >
                 <label
                   ><input
@@ -95,8 +95,7 @@
               <div>
                 <h2>Época:</h2>
                 <label
-                  ><input type="radio" name="epoca" value="todo" checked />Sin
-                  especificar</label
+                  ><input type="radio" name="epoca" value="todo" checked />Cualquiera</label
                 >
                 <label
                   ><input
@@ -106,11 +105,10 @@
                   />Clásica</label
                 >
                 <label
-                  ><input type="radio" name="epoca" value="s.XIX" />S.
-                  XIX</label
+                  ><input type="radio" name="epoca" value="s.XIX" />S.XIX</label
                 >
                 <label
-                  ><input type="radio" name="epoca" value="s.XX" />S. XX</label
+                  ><input type="radio" name="epoca" value="s.XX" />S.XX</label
                 >
               </div>
             </fieldset>

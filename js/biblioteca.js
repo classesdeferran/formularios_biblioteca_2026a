@@ -3,8 +3,8 @@
 const biblioteca = [
     { titulo: "Guerra y Paz", autor: "Lev Tolstoi", categoria: "drama", idioma: "español", epoca: "s.XIX" },
     { titulo: "Anna Karenina", autor: "Lev Tolstoi", categoria: "drama", idioma: "català", epoca: "s.XIX" },
-    { titulo: "L'Odisea", autor: "Homero", categoria: "drama", idioma: "català", epoca: "clásica" },
     { titulo: "Antologia de la poesia medieval catalana", autor: "Diversos", categoria: "poesia", idioma: "català", epoca: "clásica" },
+    { titulo: "L'Odisea", autor: "Homero", categoria: "drama", idioma: "català", epoca: "clásica" },
     { titulo: "La Ilíada", autor: "Homero", categoria: "drama", idioma: "español", epoca: "clásica" },
     { titulo: "Poema del Mio Cid", autor: "Anónimo", categoria: "poesia", idioma: "español", epoca: "clásica" },
     { titulo: "Veinte mil leguas de viaje submarino", autor: "Jules Verne", categoria: "aventuras", idioma: "español", epoca: "s.XIX" },
@@ -39,8 +39,25 @@ const biblioteca = [
 
 // ==========================================================================================================
 // EJERCICIO 1
-// Libros disponibleS
+// Libros disponibles
 // Mostrar la lista de obras alfabéticamente según el título, en forma de lista ordenada
+
+// Obtener la dirección HTML donde mostrar el resultado
+const listaLibros = document.getElementById('listaLibros')
+
+// Ordenando la biblioteca
+biblioteca.sort(function (a, b) {
+    return a.titulo.localeCompare(b.titulo, 'es', { numeric: true })
+});
+
+let html1 = '<ol>'
+biblioteca.forEach(obra => {
+    html1 += `<li>${obra.titulo}</li>`
+} )
+html1 += '</ol>'
+
+// Insertar el código HTML dentro del contenedor(div) de la página
+listaLibros.innerHTML = html1
 
 
 // ==========================================================================================================
@@ -49,6 +66,13 @@ const biblioteca = [
 // Las obras que cumplan las condiciones se mostrarán dentro del div con id salidaFiltrada
 // Las obras se mostrarán según aparece en la imagen modelo1.png
 // Hay que aplicar algunos estilos que ya están definidos en el css
+
+const formFiltrado = document.forms['formFiltrado']
+
+
+formFiltrado.addEventListener('change', () => {
+    console.log("Has hecho un cambio");
+})
 
 
 // ==========================================================================================================
