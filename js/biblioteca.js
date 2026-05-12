@@ -1,6 +1,8 @@
 // MINI BIBLIOTECA
 
-const biblioteca = [
+// Guardaremos en la variable biblioteca el contenido del
+// localStorage si existe. Sino, que lea el array siguiente
+const biblioteca = JSON.parse(localStorage.getItem("biblioteca")) || [
   {
     titulo: "Guerra y Paz",
     autor: "Lev Tolstoi",
@@ -188,23 +190,24 @@ const biblioteca = [
 // Libros disponibles
 // Mostrar la lista de obras alfabéticamente según el título, en forma de lista ordenada
 
-// Obtener la dirección HTML donde mostrar el resultado
-const listaLibros = document.getElementById("listaLibros");
+function mostrarBiblioteca(id) {
+  // Obtener la dirección HTML donde mostrar el resultado
+  const listaLibros = document.getElementById(id);
+  // Ordenando la biblioteca
+  biblioteca.sort(function (a, b) {
+    return a.titulo.localeCompare(b.titulo, "es", { numeric: true });
+  });
+  // Crear el código HTML de una lista ordenada
+  let html1 = "<ol>";
+  biblioteca.forEach((obra) => {
+    html1 += `<li>${obra.titulo}</li>`;
+  });
+  html1 += "</ol>";
 
-// Ordenando la biblioteca
-biblioteca.sort(function (a, b) {
-  return a.titulo.localeCompare(b.titulo, "es", { numeric: true });
-});
-
-// Crear el código HTML de una lista ordenada
-let html1 = "<ol>";
-biblioteca.forEach((obra) => {
-  html1 += `<li>${obra.titulo}</li>`;
-});
-html1 += "</ol>";
-
-// Insertar el código HTML dentro del contenedor(div) de la página
-listaLibros.innerHTML = html1;
+  // Insertar el código HTML dentro del contenedor(div) de la página
+  listaLibros.innerHTML = html1;
+}
+mostrarBiblioteca("listaLibros");
 
 // ==========================================================================================================
 // EJERCICIO 2
@@ -214,19 +217,23 @@ listaLibros.innerHTML = html1;
 // Hay que aplicar algunos estilos que ya están definidos en el css
 
 // Obtener la dirección HTML donde mostrar el resultado
-const salidaFiltrada = document.getElementById("salidaFiltrada");
 
-// Crear el código HTML de una lista ordenada
-let html2 = "<ol>";
-biblioteca.forEach((libro) => {
-  html2 += `<li><span class="autor"> ${libro.autor} </span>: <span class="obra">${libro.titulo}</span> (${libro.categoria}, ${libro.idioma}, ${libro.epoca})</li>`;
-});
-html2 += "</ol>";
+function listadoCompleto(id) {
+  const salidaFiltrada = document.getElementById(id);
+  // Crear el código HTML de una lista ordenada
+  let html2 = "<ol>";
+  biblioteca.forEach((libro) => {
+    html2 += `<li><span class="autor"> ${libro.autor} </span>: <span class="obra">${libro.titulo}</span> (${libro.categoria}, ${libro.idioma}, ${libro.epoca})</li>`;
+  });
+  html2 += "</ol>";
 
-salidaFiltrada.innerHTML = html2;
+  salidaFiltrada.innerHTML = html2;
+}
+listadoCompleto("salidaFiltrada");
 
+// Obtener el formulario del document (HTML)
 const formFiltrado = document.forms["formFiltrado"];
-
+// Aplicar el evento al formulario
 formFiltrado.addEventListener("change", () => {
   let itemCategoria = formFiltrado.categoria.value;
   let itemIdioma = formFiltrado["idioma"].value;
@@ -241,9 +248,9 @@ formFiltrado.addEventListener("change", () => {
 
   biblioteca.forEach((libro) => {
     if (
-    ( itemCategoria === "todo" || libro.categoria === itemCategoria) &&
-    ( itemIdioma === "todo" || libro.idioma === itemIdioma) &&
-    ( itemEpoca === "todo" || libro.epoca === itemEpoca)
+      (itemCategoria === "todo" || libro.categoria === itemCategoria) &&
+      (itemIdioma === "todo" || libro.idioma === itemIdioma) &&
+      (itemEpoca === "todo" || libro.epoca === itemEpoca)
     ) {
       html2 += `<li><span class="autor"> ${libro.autor} </span>: <span class="obra">${libro.titulo}</span> 
 (${libro.categoria}, ${libro.idioma}, ${libro.epoca})</li>`;
@@ -269,36 +276,35 @@ formFiltrado.addEventListener("change", () => {
 // Isaac Asimov : Yo, robot (ciencia-ficción, idioma : español, época : s.XX)
 
 // Obtener el formulario
-const formAutor = document.forms['formAutor']
-const salidaAutor = document.getElementById('salidaAutor')
+const formAutor = document.forms["formAutor"];
+const salidaAutor = document.getElementById("salidaAutor");
 
 // Activar un evento para el formulario
-formAutor.addEventListener('submit', (event) => {
-    // Impedir la recarga automática de la página (imprecindible)
-    event.preventDefault()
+formAutor.addEventListener("submit", (event) => {
+  // Impedir la recarga automática de la página (imprecindible)
+  event.preventDefault();
 
-    // Obtenemos lo que ha escrito el usuario en el input
-    // de name="autor"
-    let autorUsuario = formAutor.autor.value.trim().toLocaleLowerCase()
-    // console.log(autor);
+  // Obtenemos lo que ha escrito el usuario en el input
+  // de name="autor"
+  let autorUsuario = formAutor.autor.value.trim().toLocaleLowerCase();
+  // console.log(autor);
 
-    let libroNoEncontrado = true
-    let html3 = "<ol>"
-    biblioteca.forEach( libro => {
-      if (libro.autor.toLocaleLowerCase().includes(autorUsuario)) {
-        html3 += `<li><span class="autor"> ${libro.autor} </span>: <span class="obra">${libro.titulo}</span> (${libro.categoria}, ${libro.idioma}, ${libro.epoca})`
-        libroNoEncontrado = false
-      } 
-    })
-    html3 += "</ol>"
- 
-    if (libroNoEncontrado) {
-      html3 = `No hay ningún autor cuyo nombre coincida con lo solicitado (${autorUsuario}).`
+  let libroNoEncontrado = true;
+  let html3 = "<ol>";
+  biblioteca.forEach((libro) => {
+    if (libro.autor.toLocaleLowerCase().includes(autorUsuario)) {
+      html3 += `<li><span class="autor"> ${libro.autor} </span>: <span class="obra">${libro.titulo}</span> (${libro.categoria}, ${libro.idioma}, ${libro.epoca})`;
+      libroNoEncontrado = false;
     }
+  });
+  html3 += "</ol>";
 
-    salidaAutor.innerHTML = html3
-})
+  if (libroNoEncontrado) {
+    html3 = `No hay ningún autor cuyo nombre coincida con lo solicitado (${autorUsuario}).`;
+  }
 
+  salidaAutor.innerHTML = html3;
+});
 
 // Si el autor no está en la bilioteca mostrar texto de aviso
 
@@ -310,8 +316,34 @@ formAutor.addEventListener('submit', (event) => {
 // Una vez creada será leída en lugar de la lista inicial
 // Actualizar automáticamente el listado de obras del ejercicio 1
 
+const form4 = document.forms["form4"];
 
+form4.addEventListener("submit", (e) => {
+  e.preventDefault();
 
+  // Obtener los datos del usuario
+  let autor = form4["incluirAutor"].value.trim();
+  let titulo = form4["incluirTitulo"].value.trim();
+  let categoria = form4["incluirCategoria"].value.trim();
+  let idioma = form4["incluirIdioma"].value.trim();
+  let epoca = form4["incluirEpoca"].value.trim();
+
+  // console.log(autor, titulo, categoria, idioma, epoca);
+
+  // Crear el objeto libro con la información del usuario
+  let libro = { titulo, autor, categoria, idioma, epoca };
+
+  // Añadir el libro a la biblioteca
+  biblioteca.push(libro);
+
+  // Actualizamos la lista del ejercicio 1
+  mostrarBiblioteca("listaLibros");
+  // Actualizamos la lista del ejercicio 2
+  listadoCompleto("salidaFiltrada");
+
+  // Guardar la biblioteca con el libro nuevo en el localStorage
+  localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
+});
 
 // ==========================================================================================================
 // EJERCICIO 5
