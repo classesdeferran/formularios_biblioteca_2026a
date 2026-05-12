@@ -270,6 +270,7 @@ formFiltrado.addEventListener("change", () => {
 
 // Obtener el formulario
 const formAutor = document.forms['formAutor']
+const salidaAutor = document.getElementById('salidaAutor')
 
 // Activar un evento para el formulario
 formAutor.addEventListener('submit', (event) => {
@@ -278,8 +279,24 @@ formAutor.addEventListener('submit', (event) => {
 
     // Obtenemos lo que ha escrito el usuario en el input
     // de name="autor"
-    let autor = formAutor.autor.value
-    console.log(autor);
+    let autorUsuario = formAutor.autor.value.trim().toLocaleLowerCase()
+    // console.log(autor);
+
+    let libroNoEncontrado = true
+    let html3 = "<ol>"
+    biblioteca.forEach( libro => {
+      if (libro.autor.toLocaleLowerCase().includes(autorUsuario)) {
+        html3 += `<li><span class="autor"> ${libro.autor} </span>: <span class="obra">${libro.titulo}</span> (${libro.categoria}, ${libro.idioma}, ${libro.epoca})`
+        libroNoEncontrado = false
+      } 
+    })
+    html3 += "</ol>"
+ 
+    if (libroNoEncontrado) {
+      html3 = `No hay ningún autor cuyo nombre coincida con lo solicitado (${autorUsuario}).`
+    }
+
+    salidaAutor.innerHTML = html3
 })
 
 
@@ -292,6 +309,9 @@ formAutor.addEventListener('submit', (event) => {
 // Conseguir permanencia con LocalStorage
 // Una vez creada será leída en lugar de la lista inicial
 // Actualizar automáticamente el listado de obras del ejercicio 1
+
+
+
 
 // ==========================================================================================================
 // EJERCICIO 5

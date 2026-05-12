@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -75,7 +75,12 @@
               <div>
                 <h2>Idioma:</h2>
                 <label
-                  ><input type="radio" name="idioma" value="todo" checked />Cualquiera</label
+                  ><input
+                    type="radio"
+                    name="idioma"
+                    value="todo"
+                    checked
+                  />Cualquiera</label
                 >
                 <label
                   ><input
@@ -95,7 +100,12 @@
               <div>
                 <h2>Época:</h2>
                 <label
-                  ><input type="radio" name="epoca" value="todo" checked />Cualquiera</label
+                  ><input
+                    type="radio"
+                    name="epoca"
+                    value="todo"
+                    checked
+                  />Cualquiera</label
                 >
                 <label
                   ><input
@@ -141,12 +151,38 @@
       <section>
         <details>
           <summary>4. Añadir obra a la biblioteca</summary>
-
-
+          <form name="form4" id="incluirObra">
+            <div>
+              <label for="incluirAutor">Autor:</label>
+              <input type="text" id="incluirAutor" name="incluirAutor" />
+            </div>
+            <div>
+              <label for="incluirTitulo">Título:</label>
+              <input type="text" id="incluirTitulo" name="incluirTitulo" />
+            </div>
+            <div>
+              <label for="incluirCategoria">Categoría:</label>
+              <input
+                type="text"
+                id="incluirCategoria"
+                name="incluirCategoria"
+              />
+            </div>
+            <div>
+              <label for="incluirIdioma">Idioma:</label>
+              <input type="text" id="incluirIdioma" name="incluirIdioma" />
+            </div>
+            <div>
+              <label for="incluirEpoca">Época</label>
+              <input type="text" id="incluirEpoca" name="incluirEpoca" />
+            </div>
+            <div>
+            <button type="submit" class="boton boton-incluir">Incluir libro</button>
+            <button type="reset" class="boton boton-reset">Borrar datos</button>
+            </div>
+          </form>
         </details>
       </section>
-
-
     </main>
 
     <script src="js/biblioteca.js"></script>

@@ -92,6 +92,7 @@ form+div {
     background-color: rgb(0, 0, 255, 10%);
 }
 
+/* Estilos del formulario 4 */
 #incluirObra {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -137,6 +138,12 @@ form+div {
         background-color: darkred;
     }
 
+}
+
+#incluirObra div:last-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 select {
