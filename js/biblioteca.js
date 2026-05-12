@@ -317,6 +317,9 @@ formAutor.addEventListener("submit", (event) => {
 // Actualizar automáticamente el listado de obras del ejercicio 1
 
 const form4 = document.forms["form4"];
+const dialogIncluirObra = document.getElementById("dialogIncluirObra");
+const libroAdd = document.getElementById("libroAdd");
+const formDialog = document.getElementById("formDialog");
 
 form4.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -328,21 +331,37 @@ form4.addEventListener("submit", (e) => {
   let idioma = form4["incluirIdioma"].value.trim();
   let epoca = form4["incluirEpoca"].value.trim();
 
-  // console.log(autor, titulo, categoria, idioma, epoca);
+  libroAdd.innerHTML = `<span class="autor"> ${autor} </span>: <span class="obra">${titulo}</span> 
+(${categoria}, ${idioma}, ${epoca})`;
+dialogIncluirObra.showModal();
+// console.log(autor, titulo, categoria, idioma, epoca);
 
-  // Crear el objeto libro con la información del usuario
-  let libro = { titulo, autor, categoria, idioma, epoca };
+  formDialog.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Crear el objeto libro con la información del usuario
+    let libro = { titulo, autor, categoria, idioma, epoca };
 
-  // Añadir el libro a la biblioteca
-  biblioteca.push(libro);
+    // Añadir el libro a la biblioteca
+    biblioteca.push(libro);
 
-  // Actualizamos la lista del ejercicio 1
-  mostrarBiblioteca("listaLibros");
-  // Actualizamos la lista del ejercicio 2
-  listadoCompleto("salidaFiltrada");
+    // Actualizamos la lista del ejercicio 1
+    mostrarBiblioteca("listaLibros");
+    // Actualizamos la lista del ejercicio 2
+    listadoCompleto("salidaFiltrada");
 
-  // Guardar la biblioteca con el libro nuevo en el localStorage
-  localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
+    formFiltrado.reset();
+    form4.reset();
+
+    // Guardar la biblioteca con el libro nuevo en el localStorage
+    localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
+
+    dialogIncluirObra.close();
+  });
+
+  formDialog.addEventListener("reset", () => {
+    dialogIncluirObra.close();
+    form4.reset();
+  });
 });
 
 // ==========================================================================================================
