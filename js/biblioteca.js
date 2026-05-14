@@ -319,7 +319,7 @@ formAutor.addEventListener("submit", (event) => {
 const form4 = document.forms["form4"];
 const dialogIncluirObra = document.getElementById("dialogIncluirObra");
 const libroAdd = document.getElementById("libroAdd");
-const formDialog = document.getElementById("formDialog");
+const formDialog = document.forms["formDialog"];
 
 form4.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -333,8 +333,8 @@ form4.addEventListener("submit", (e) => {
 
   libroAdd.innerHTML = `<span class="autor"> ${autor} </span>: <span class="obra">${titulo}</span> 
 (${categoria}, ${idioma}, ${epoca})`;
-dialogIncluirObra.showModal();
-// console.log(autor, titulo, categoria, idioma, epoca);
+  dialogIncluirObra.showModal();
+  // console.log(autor, titulo, categoria, idioma, epoca);
 
   formDialog.addEventListener("submit", (e) => {
     e.preventDefault();
